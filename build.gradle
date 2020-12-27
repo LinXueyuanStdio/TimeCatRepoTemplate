@@ -1,0 +1,43 @@
+buildscript {
+    def moduleConfigProps = new Properties()
+    File moduleConfig = rootProject.file("moduleConfig.properties")
+    if (moduleConfig.exists()) {
+        moduleConfigProps.load(new FileInputStream(moduleConfig))
+    }
+    def localMavenDir = file(moduleConfigProps.localMavenPath)
+
+    repositories {
+        google()
+        jcenter()
+        maven { url "file://${localMavenDir.absolutePath}" }
+        maven { url "https://plugins.gradle.org/m2/" }
+//        maven { url "https://github.com/LinXueyuanStdio/MLang/raw/main/dist/" }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.0.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+        classpath "com.github.breadmoirai:github-release:2.2.12"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    def moduleConfigProps = new Properties()
+    File moduleConfig = rootProject.file("moduleConfig.properties")
+    if (moduleConfig.exists()) {
+        moduleConfigProps.load(new FileInputStream(moduleConfig))
+    }
+    def localMavenDir = file(moduleConfigProps.localMavenPath)
+
+    repositories {
+        google()
+        jcenter()
+        maven { url "file://${localMavenDir.absolutePath}" }
+//        maven { url "https://github.com/LinXueyuanStdio/MLang/raw/main/dist/" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
